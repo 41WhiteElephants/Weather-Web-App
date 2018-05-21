@@ -1,32 +1,82 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <title>MilaPogoda</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>MilaPogoda.pl</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <style>
-    .jumbotron {
-        background-color: #f4511e; /* Orange */
-        color: #ffffff;
-    }
-    </style>
-    <div class="jumbotron text-center">
-        <div class="page-header">
-            <h1>MilaPogoda</h1>
-        </div>
-        <form action = "/index" method = "POST">
-            <div class="input-group">
-                <span class="input-group-addon">Współrzędne</span>
-                <input name="data" type="text" class="form-control" placeholder="Podaj współrzędne np 54.35 18.65 ">
-            </div>
-            <button type="submit" class="btn btn-primary">Szukaj</button>
-        </form>
-    </div>
+	<style>
+		.container {
+			font: Tangerine;
+		}
+	.zoom {
+	display: block;
+	transition: transform .2s; /* Animation */
+	width: 20%;
+	margin: 0 auto;
+	}
+	.zoom:hover {
+		transform: scale(2);
+	}
+	.image {
+		position: relative;
+		left: 200;
+	}
+	</style>
+	<div class="page-header text-center">
+		<h1>MilaPogoda.pl</h1>
+	</div>
+    <div class="container">
+		<div class="text-center">
+			<h4>Oblicz średnią temperaturę w obszarze wyznaczonym<br>
+			przez dwie współrzedne geograficzne punktów A i B.
+			</h4>
+		<div>
+		<div class="image">
+			<img class="zoom" src="{{ url_for("static", filename="help_map.jpeg") }}">
+		</div>
+		<form method="POST" action="{{ url_for("index") }}">
+			<div class="input-group-inline">
+				{{ form.csrf_token }}
+					Szerokość geograficzna punktu A
+					{{ form.latitude_bottom }}
+					<ul>
+					{% for error in form.latitude_bottom.errors %}
+					<li style="color:red;">{{ error }} </li>
+					{% endfor %}
+					</ul>
+						 Długość geograficzna punktu A &nbsp &nbsp
+					 {{ form.longitude_left }}
+					<ul>
+					{% for error in form.longitude_left.errors %}
+					<li style="color:red;">{{ error }}</li>
+					{% endfor %}
+					</ul>
+					Szerokość geograficzna punktu B
+					{{ form.latitude_top }}
+					<ul>
+					{% for error in form.latitude_top.errors %}
+					<li style="color:red;">{{ error }} </li>
+					{% endfor %}
+					</ul>
+						Długość geograficzna punktu B &nbsp &nbsp
+						{{ form.longitude_right }}
+					<ul>
+					{% for error in form.longitude_right.errors %}
+					<li style="color:red;">{{ error }}</li>
+					{% endfor %}
+					</ul>
+			</div>
+			<button id="singlebutton" name="singlebutton" class="btn btn-primary">Oblicz</button>
+	</div>
+	<div class="footer-copyright py-3 text-center">
+		©MilaPogoda.pl 2018
+	</div>
 
-   </body>
+</body>
 </html>

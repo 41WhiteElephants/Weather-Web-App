@@ -1,26 +1,47 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <title>MilaPogoda</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>MilaPogoda.pl</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Tangerine">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
     <style>
-        .jumbotron {
-        background-color: #f4511e; /* Orange */
-        color: #ffffff;
-        }
-    </style>
-    <div class="jumbotron text-center">
-        <div class="page-header">
-            <h1>MilaPogoda</h1>
-        </div>
-        <h1> Stacja: {{ name }}<br>
-         Średnia temperatura: {{ temperature }} stopni Celsjusza</h1>
-    </div>
-   </body>
+    	.container {
+			font: Tangerine;
+		}
+	</style>
+	<div class="container">
+		<div class="page-header text-center">
+			<h1>MilaPogoda.pl</h1>
+		</div>
+		<h3 class="text-center">
+		 Średnia temperatura: {{ mean_temp }} °C
+		</h3>
+		<table class="table table-hover">
+			<thead >
+				<tr>
+					<th>Stacja</th>
+					<th>Temperatura</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for k, v in station_temp_dicterature.items() %}
+				<tr>
+					<td>{{ k }}</td><td>{{ v }} °C </td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<footer class="page-footer font-small blue pt-4 mt-4">
+			<div class="footer-copyright py-3 text-center">
+        		©MilaPogoda.pl 2018
+    		</div>
+		</footer>
+	</div>
+</body>
 </html>
